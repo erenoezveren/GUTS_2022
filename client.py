@@ -34,19 +34,24 @@ class Button:
 
 
 def redrawWindow(win, game, p):
-    win.fill((256,256,256))
+    win.fill((128,128,128))
 
     if not(game.connected()):
         font = pygame.font.SysFont("comicsans", 80)
         text = font.render("Waiting for Player...", 1, (255,0,0), True)
         win.blit(text, (width/2 - text.get_width()/2, height/2 - text.get_height()/2))
     else:
+
         font = pygame.font.SysFont("comicsans", 60)
-        text = font.render("Your Move", 1, (0, 255,255))
+        text = font.render("Your Cards", 1, (0, 255, 255))
         win.blit(text, (80, 200))
 
-        text = font.render("Opponents", 1, (0, 255, 255))
-        win.blit(text, (380, 200))
+
+        font = pygame.font.SysFont("comicsans", 60)
+        text = font.render("Your Move", 1, (0, 255,255))
+        win.blit(text, (80, 400))
+
+
 
         move1 = game.get_player_move(0)
         move2 = game.get_player_move(1)
@@ -75,13 +80,13 @@ def redrawWindow(win, game, p):
             win.blit(text1, (100, 350))
             win.blit(text2, (400, 350))
 
-        for btn in btns:
+        for btn in buttons:
             btn.draw(win)
 
     pygame.display.update()
 
 
-btns = [Button("DISCARD 1", 50, 500, (0,0,0)), Button("DISCARD 2", 250, 500, (255,0,0)), Button("Paper", 450, 500, (0,255,0))]
+buttons = [Button("DISCARD 1", 50, 500, (0,0,0)), Button("DISCARD 2", 250, 500, (255,0,0))]
 def main():
     run = True
     clock = pygame.time.Clock()
@@ -127,14 +132,14 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
-                for btn in btns:
-                    if btn.click(pos) and game.connected():
+                for button in buttons:
+                    if button.click(pos) and game.connected():
                         if player == 0:
                             if not game.p1Went:
-                                n.send(btn.text)
+                                n.send(button.text)
                         else:
                             if not game.p2Went:
-                                n.send(btn.text)
+                                n.send(button.text)
 
         redrawWindow(win, game, player)
 
