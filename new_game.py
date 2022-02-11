@@ -45,9 +45,14 @@ class Game:
     
     def winner(self):
     #return the winner of the game (if there is one) REQUIRES: DECK EMPTY
-        highest = 0
-        for player in self._players:
-            pass
+        if(len(self._deck)==0):
+            highest = 0
+            winner = None
+            for player in self._players:
+                if player.card1 > highest:
+                    highest = player.card1
+                    winner = player
+        return player
 
     
     def cards_left(self):
