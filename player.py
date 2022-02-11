@@ -14,7 +14,8 @@ class Player:
 
     def play_card1(self):
         temp_card = self.card1
-        self.card1 = 0
+        self.card1 = self.card2
+        self.card2 = 0
         return temp_card  
 
     def play_card2(self):

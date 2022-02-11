@@ -4,7 +4,7 @@ import random
 '''
 
 class Game:
-    def __init__(self, deck, dealt_cards, player_N):
+    def __init__(self, deck, player_N):
         self._deck = deck #array of cards in numbers, ie: [1, 1, 8] would mean Guard, Guard, Princess left in the deck
         self.turn = 0
         self.current_player = 0
@@ -22,19 +22,9 @@ class Game:
         if player == self.current_player:
             self.current_player += 1
 
-
-        
-    def players(self):
-    #return the list of players
-        return None
-
-    #redundant8
-    def deck(self):
-    #return the list of cards
-        return self._deck
     
     def draw_card(self):
-    #return card at the top of the deck (if game is running)
+    #return card at the top of the deck (if game is running (This should probably be checked somewhere else for like every turn though right?))
         if(self._active):
             if len(self.deck) > 1:
                 new_card = self._deck[0]
@@ -54,12 +44,15 @@ class Game:
         return self.current_player
     
     def winner(self):
-    #return the winner of the game (if there is one)
-        return None
+    #return the winner of the game (if there is one) REQUIRES: DECK EMPTY
+        highest = 0
+        for player in self._players:
+            pass
+
     
     def cards_left(self):
     #return the number of the cards left in the deck
-        return None
+        return len(self._deck)
     
     
     """left to add:
