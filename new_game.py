@@ -15,7 +15,7 @@ class Game:
         #set up players
         players = []
         for i in range(player_N):
-            players.append(id=i, card=i)
+            players.append(id=i, card=self.draw_card())
 
 
     def play(self, player, move):
@@ -27,18 +27,24 @@ class Game:
     def players(self):
     #return the list of players
         return None
-        
+
+    #redundant8
     def deck(self):
     #return the list of cards
-        if len(self.deck) > 1:
-            return self.deck[0]
-        else:
-            return 0
+        return self._deck
     
     def draw_card(self):
     #return card at the top of the deck (if game is running)
-        return None
-    
+        if(self._active):
+            if len(self.deck) > 1:
+                new_card = self._deck[0]
+                self._deck = self._deck[1:]
+            else:
+                new_card = self._deck[0]
+                self._deck = []
+
+            return new_card
+
     def turn(self):
     #return the current turn number
         return self.turn
