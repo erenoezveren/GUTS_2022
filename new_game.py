@@ -3,19 +3,19 @@
 '''
 
 class Game:
-    def __init__(self, deck, players, turn):
+    def __init__(self, deck, dealt_cards, players):
         self._deck = deck #array of cards in numbers, ie: [1, 1, 8] would mean Guard, Guard, Princess left in the deck
         self._players = players #guessing this is something like an array?
-        self._turn = 0
+        self.turn = 0
         self.current_player = 0
 
         total_players = len(players) # probably?
         self._active = total_players> 1 and self._cards_left() > 0
 
     def play(self, player, move):
-        self.moves[player] = move
         if player == self.current_player:
             self.current_player += 1
+
 
         
     def players(self):
@@ -35,11 +35,11 @@ class Game:
     
     def turn(self):
     #return the current turn number
-        return None
+        return self.turn
     
     def current_player(self):
     #return the player whose turn it currently is?
-        return None
+        return self.current_player
     
     def winner(self):
     #return the winner of the game (if there is one)
