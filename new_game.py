@@ -1,16 +1,22 @@
+import random
 '''
     Love letter - implementation of the game
 '''
 
 class Game:
-    def __init__(self, deck, dealt_cards, players):
+    def __init__(self, deck, dealt_cards, player_N):
         self._deck = deck #array of cards in numbers, ie: [1, 1, 8] would mean Guard, Guard, Princess left in the deck
-        self._players = players #guessing this is something like an array?
         self.turn = 0
         self.current_player = 0
 
-        total_players = len(players) # probably?
-        self._active = total_players> 1 and self._cards_left() > 0
+        players_left = player_N
+        self._active = players_left> 1 and self._cards_left() > 0
+
+        #set up players
+        players = []
+        for i in range(player_N):
+            players.append(id=i, card=i)
+
 
     def play(self, player, move):
         if player == self.current_player:
@@ -55,4 +61,5 @@ class Game:
         function that checks if a move is valid?
         function that shuffles/resets the deck
         
-       """ 
+       """
+
