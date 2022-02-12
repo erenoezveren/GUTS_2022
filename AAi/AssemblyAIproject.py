@@ -33,7 +33,7 @@ def read_file(filename):
 arr=os.listdir('tmp/')
 
 for i in range(len(arr)):
-    clip = mp.VideoFileClip(r'tmp/'+arr[i])
+    clip = mp.VideoFileClip(r'tmp/clip'+str(i)+".mp4")
     clip.audio.write_audiofile(r"mp/clip"+str(i)+".mp3")
 
 
@@ -51,14 +51,12 @@ for index, clip in enumerate(ar):
     polling_response = requests.get("https://api.assemblyai.com/v2/transcript/" + _id, headers=headers)
     print(polling_response.json()['status'])
 
-    filename = 'txt/clip'+ str(index) + '.txt'
+
     while polling_response.json()['status'] != 'completed':
         sleep(3)
         polling_response = requests.get(transcript_endpoint+"/"+transcript_response.json()['id'], headers=headers)
         print("File is", polling_response.json()['status'])
-    with open(filename, 'w') as f:
-        f.write(polling_response.json()['text'])
-        print('Transcript saved to', filename)
+
 
     print('Creating subtitles')
     endpoint = "https://api.assemblyai.com/v2/transcript/{}/srt".format(_id)
