@@ -68,5 +68,5 @@ for index, clip in enumerate(ar):
 #put subtitles on videos
 for i in range(len(arr)):
     print("PuTTING SUbTiTlES")
-    os.system("ffmpeg -y -i tmp/clip{}.mp4 -vf subtitles=subtitles/srt{}.srt out{}.mp4".format(i,i,i))
+    os.system("ffmpeg -y -i tmp/clip{}.mp4 -vf subtitles=subtitles/srt{}.srt out/out{}.mp4".format(i,i,i))
 
