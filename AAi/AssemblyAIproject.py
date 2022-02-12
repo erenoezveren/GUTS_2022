@@ -37,11 +37,11 @@ for i in range(len(videos)):
     clip = mp.VideoFileClip(r'tmp/clip'+str(i)+".mp4")
     clip.audio.write_audiofile(r"mp/clip"+str(i)+".mp3")
 
-
+clips_N = len(videos)
 arr = os.listdir('mp/')
 audios = [clip for clip in arr if clip.endswith(".mp3")]
 
-for i in range(len(audios)):
+for i in range(clips_N):
     print("Clip No. " + str(i))
     upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/clip'+ str(i) + ".mp3"))
     audio_url = upload_response.json()["upload_url"]
@@ -69,7 +69,7 @@ for i in range(len(audios)):
     f.close()
 
 #put subtitles on videos
-for i in range(len(arr)):
+for i in range(clips_N):
     print("Putting together subtitles and video")
     os.system("ffmpeg -y -i tmp/clip{}.mp4 -b:v 900k -b:a 192k  -vf subtitles=subtitles/srt{}.srt out/out{}.mp4".format(i,i,i))
 
