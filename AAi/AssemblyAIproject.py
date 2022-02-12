@@ -51,7 +51,7 @@ for index, clip in enumerate(ar):
 
     filename = 'txt/clip'+ str(index) + '.txt'
     while polling_response.json()['status'] != 'completed':
-        sleep(30)
+        sleep(3)
         polling_response = requests.get(transcript_endpoint+"/"+transcript_response.json()['id'], headers=headers)
         print("File is", polling_response.json()['status'])
     with open(filename, 'w') as f:
