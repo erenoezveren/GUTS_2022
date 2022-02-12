@@ -32,6 +32,10 @@ def read_file(filename):
             yield data
 arr=os.listdir('tmp/')
 videos = [clip for clip in arr if clip.endswith(".mp4")]
+
+if not os.path.exists("mp"):
+    os.makedirs("mp")
+
 for i in range(len(videos)):
     print(i)
     clip = mp.VideoFileClip(r'tmp/clip'+str(i)+".mp4")
