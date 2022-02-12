@@ -8,6 +8,9 @@ import pprint
 import json
 import moviepy.editor as mp
 from time import sleep
+import os
+
+
 
 auth_key = 'c61f276a614a4416a8e9287b02812296'
 
@@ -36,7 +39,6 @@ for i in range(len(arr)):
 
 ar = os.listdir('mp/')
 
-ids=[]
 for index, clip in enumerate(ar):
     upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/'+clip))
     audio_url = upload_response.json()["upload_url"]
@@ -58,7 +60,6 @@ for index, clip in enumerate(ar):
         f.write(polling_response.json()['text'])
         print('Transcript saved to', filename)
 
-    ids.append(_id)
     print('Creating subtitles')
     endpoint = "https://api.assemblyai.com/v2/transcript/{}/srt".format(_id)
     response = requests.get(endpoint, headers=headers)
@@ -66,8 +67,8 @@ for index, clip in enumerate(ar):
     f.write(response.text)
     f.close()
 
-
-
-
-
+#put subtitles on videos
+for i in range(len(arr)):
+    print("PuTTING SUbTiTlES")
+    os.system("ffmpeg -y -i tmp/clip{}.mp4 -vf subtitles=subtitles/srt{}.srt out{}.mp4".format(i,i,i))
 
