@@ -35,6 +35,8 @@ for i in range(len(arr)):
 
 
 ar = os.listdir('mp/')
+
+ids=[]
 for index, clip in enumerate(ar):
     upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/'+clip))
     audio_url = upload_response.json()["upload_url"]
@@ -42,6 +44,7 @@ for index, clip in enumerate(ar):
     transcript_request = {'audio_url': audio_url}
     transcript_response = requests.post("https://api.assemblyai.com/v2/transcript", json=transcript_request, headers=headers)
     _id = transcript_response.json()["id"]
+
 
     polling_response = requests.get("https://api.assemblyai.com/v2/transcript/" + _id, headers=headers)
     print(polling_response.json()['status'])
@@ -54,3 +57,11 @@ for index, clip in enumerate(ar):
     with open(filename, 'w') as f:
         f.write(polling_response.json()['text'])
         print('Transcript saved to', filename)
+
+    ids.append(_id)
+
+endpoint = "https://api.assemblyai.com/v2/transcript/{}/vtt".format(ids[0])
+response = requests.get(endpoint, headers=headers)
+print(response.text)
+
+
