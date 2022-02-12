@@ -46,7 +46,7 @@ for index, clip in enumerate(URLS):
         try:
             thumb_url = clip_info['thumbnails']['medium']
             mp4_url = thumb_url.split("-preview",1)[0] + ".mp4"
-            out_filename = "clip" + str(index) + ".mp4"
+            out_filename = "clip" + str(counter) + ".mp4"
             output_path = (basepath + out_filename)
 
 
@@ -63,6 +63,8 @@ for index, clip in enumerate(URLS):
                 urllib.request.urlretrieve(mp4_url, output_path, reporthook=dl_progress)
             except:
                 print("An exception occurred")
-            counter+=1                
+            print(counter)
+            counter+=1
+
         except:
             pass

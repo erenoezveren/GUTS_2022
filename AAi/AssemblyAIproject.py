@@ -31,16 +31,19 @@ def read_file(filename):
                 break
             yield data
 arr=os.listdir('tmp/')
-
-for i in range(len(arr)):
+videos = [clip for clip in arr if clip.endswith(".mp4")]
+for i in range(len(videos)):
+    print(i)
     clip = mp.VideoFileClip(r'tmp/clip'+str(i)+".mp4")
     clip.audio.write_audiofile(r"mp/clip"+str(i)+".mp3")
 
 
-ar = os.listdir('mp/')
+arr = os.listdir('mp/')
+audios = [clip for clip in arr if clip.endswith(".mp3")]
 
-for index, clip in enumerate(ar):
-    upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/'+clip))
+for i in range(len(audios)):
+    print("Clip No. " + str(i))
+    upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/clip'+ str(i) + ".mp3"))
     audio_url = upload_response.json()["upload_url"]
 
     transcript_request = {'audio_url': audio_url}
@@ -61,12 +64,12 @@ for index, clip in enumerate(ar):
     print('Creating subtitles')
     endpoint = "https://api.assemblyai.com/v2/transcript/{}/srt".format(_id)
     response = requests.get(endpoint, headers=headers)
-    f = open("subtitles/srt{}.srt".format(index), "w+")
+    f = open("subtitles/srt{}.srt".format(i), "w+")
     f.write(response.text)
     f.close()
 
 #put subtitles on videos
 for i in range(len(arr)):
-    print("PuTTING SUbTiTlES")
-    os.system("ffmpeg -y -i tmp/clip{}.mp4 -vf subtitles=subtitles/srt{}.srt out/out{}.mp4".format(i,i,i))
+    print("Putting together subtitles and video")
+    os.system("ffmpeg -y -i tmp/clip{}.mp4 -b:v 900k -b:a 192k  -vf subtitles=subtitles/srt{}.srt out/out{}.mp4".format(i,i,i))
 
