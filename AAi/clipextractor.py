@@ -32,7 +32,7 @@ for post in lsfres.json()['data']['children']:
         URLS.append(url)
 
 #URLS now contains links to the top clips from Livestream Fails, which we can use twitchdownloader.py to download clips from:
-
+print(URLS)
 #run os command to download clips:
 
 for index, clip in enumerate(URLS):
@@ -46,7 +46,7 @@ for index, clip in enumerate(URLS):
     print(clip_info)
     thumb_url = clip_info['thumbnails']['medium']
     mp4_url = thumb_url.split("-preview",1)[0] + ".mp4"
-    out_filename = "clip" + str(index+1) + ".mp4"
+    out_filename = "clip" + str(index) + ".mp4"
     output_path = (basepath + out_filename)
 
 
