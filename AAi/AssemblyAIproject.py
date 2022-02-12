@@ -29,9 +29,9 @@ def read_file(filename):
             yield data
 arr=os.listdir('tmp/')
 
-#for i in range(len(arr)):
- #   clip = mp.VideoFileClip(r'tmp/'+arr[i])
-  #  clip.audio.write_audiofile(r"mp/clip"+str(i)+".mp3")
+for i in range(len(arr)):
+    clip = mp.VideoFileClip(r'tmp/'+arr[i])
+    clip.audio.write_audiofile(r"mp/clip"+str(i)+".mp3")
 
 
 ar = os.listdir('mp/')
@@ -59,12 +59,15 @@ for index, clip in enumerate(ar):
         print('Transcript saved to', filename)
 
     ids.append(_id)
-    break
+    print('Creating subtitles')
+    endpoint = "https://api.assemblyai.com/v2/transcript/{}/srt".format(_id)
+    response = requests.get(endpoint, headers=headers)
+    f = open("subtitles/srt{}.srt".format(index), "w+")
+    f.write(response.text)
+    f.close()
 
-endpoint = "https://api.assemblyai.com/v2/transcript/{}/vtt".format(ids[0])
-response = requests.get(endpoint, headers=headers)
-print(response.text)
-print(response)
-f = open("id1.txt","w+")
-f.write(response.text)
-f.close()
+
+
+
+
+
