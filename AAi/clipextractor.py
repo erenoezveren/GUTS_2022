@@ -35,7 +35,7 @@ for post in lsfres.json()['data']['children']:
 
 #run os command to download clips:
 
-for clip in URLS:
+for index, clip in enumerate(URLS):
 
     client_id = 'Your Client ID'
     basepath = 'tmp/'
@@ -46,7 +46,7 @@ for clip in URLS:
     print(clip_info)
     thumb_url = clip_info['thumbnails']['medium']
     mp4_url = thumb_url.split("-preview",1)[0] + ".mp4"
-    out_filename = slug + ".mp4"
+    out_filename = "clip" + str(index+1) + ".mp4"
     output_path = (basepath + out_filename)
 
 
