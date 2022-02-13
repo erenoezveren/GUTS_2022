@@ -1,16 +1,16 @@
-
 """
-Python script which downloads the top clips from livestreamfails using the Twitch and Reddit API keys
+Method that downloads the top clips from r/livestreamfails using the Twitch and Reddit API keys
 
 """
 
 import os
 import sys
-import requests
 import urllib.request
-import argparse
-def extract():
 
+import requests
+
+
+def extract():
     auth = requests.auth.HTTPBasicAuth('BLuYjxErXU1iGIooZq1hfw', 'xpWGDzNAzXmT3TzYa9o79w1lEMgXlA')
     data = {'grant_type': 'password',
             'username': 'natefrostmd',
@@ -23,7 +23,7 @@ def extract():
     headers = {**headers, **{'Authorization': f"bearer {TOKEN}"}}
 
     lsfres = requests.get("https://oauth.reddit.com/r/livestreamfails/hot",
-                       headers=headers)
+                          headers=headers)
 
     URLS = []
 
@@ -32,23 +32,24 @@ def extract():
         if url.startswith("https://clips.twitch.tv/"):
             URLS.append(url)
 
-    #URLS now contains links to the top clips from Livestream Fails, which we can use twitchdownloader.py to download clips from:
-    #run os command to download clips:
-    counter=0
+    # URLS now contains links to the top clips from Livestream Fails,
+    # which we can use twitchdownloader.py to download clips from:
+    # run os command to download clips:
+    counter = 0
 
     for index, clip in enumerate(URLS):
-        if counter<5:
-            client_id = 'Your Client ID'
+        if counter < 5:
             basepath = 'Videos/'
             slug = clip.rpartition('/')[-1]
-            clip_info = requests.get("https://api.twitch.tv/kraken/clips/" + slug, headers={"Client-ID": 'gp762nuuoqcoxypju8c569th9wz7q5', "Accept":"application/vnd.twitchtv.v5+json"}).json()
+            clip_info = requests.get("https://api.twitch.tv/kraken/clips/" + slug,
+                                     headers={"Client-ID": 'gp762nuuoqcoxypju8c569th9wz7q5',
+                                              "Accept": "application/vnd.twitchtv.v5+json"}).json()
 
             try:
                 thumb_url = clip_info['thumbnails']['medium']
-                mp4_url = thumb_url.split("-preview",1)[0] + ".mp4"
+                mp4_url = thumb_url.split("-preview", 1)[0] + ".mp4"
                 out_filename = "clip" + str(counter) + ".mp4"
                 output_path = (basepath + out_filename)
-
 
                 def dl_progress(count, block_size, total_size):
                     percent = int(count * block_size * 100 / total_size)
@@ -62,8 +63,8 @@ def extract():
                 try:
                     urllib.request.urlretrieve(mp4_url, output_path, reporthook=dl_progress)
                 except:
-                    print("An exception occurred")
-                counter+=1
+                    print("An exception occurred when trying to download this clip")
+                counter += 1
 
             except:
-                pass
+                print("An exception accured when trying to download this clip")
