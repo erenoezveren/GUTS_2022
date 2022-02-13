@@ -24,14 +24,14 @@ bot = commands.Bot(command_prefix='!')
 
 @bot.command(name='clip')
 async def send_clip(ctx, arg=None):
-    clips = os.listdir('out/')
+    clips = os.listdir('Output/')
     if len(clips) < 1:
         await ctx.send('You need to extract the newest clips with the !update command.')
     if arg in ["1", "2", "3", "4", "5"]:
         rand = int(arg) - 1
     else:
         rand = random.randint(0, len(clips) - 1)
-    await ctx.send('Enjoy your clip!', file=discord.File('out/' + clips[rand]))
+    await ctx.send('Enjoy your clip!', file=discord.File('Output/' + clips[rand]))
 
 
 @bot.command(name='update')

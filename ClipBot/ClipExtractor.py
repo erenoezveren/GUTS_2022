@@ -26,17 +26,14 @@ def extract():
                           headers=headers)
 
     URLS = []
-
+    # Insert into URLS links to the top clips from Livestream Fails
     for post in lsfres.json()['data']['children']:
         url = post['data']['url']
         if url.startswith("https://clips.twitch.tv/"):
             URLS.append(url)
 
-    # URLS now contains links to the top clips from Livestream Fails,
-    # which we can use twitchdownloader.py to download clips from:
-    # run os command to download clips:
     counter = 0
-
+    # For each clip in URLS, try to download it using the twitch API and save it to Videos
     for index, clip in enumerate(URLS):
         if counter < 5:
             basepath = 'Videos/'
