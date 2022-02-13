@@ -72,6 +72,9 @@ for i in range(clips_N):
     f.write(response.text)
     f.close()
 
+if not os.path.exists("out"):
+    os.makedirs("out")
+
 #put subtitles on videos
 for i in range(clips_N):
     print("Putting together subtitles and video")
