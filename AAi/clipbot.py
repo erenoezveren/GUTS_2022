@@ -17,9 +17,7 @@ bot = commands.Bot(command_prefix='!')
 @bot.command(name='clip')
 async def send_clip(ctx):
     clips = os.listdir('mp/')
-    txts = os.listdir('txt/')
     rand = random.randint(0, len(clips))
     await ctx.send('Enjoy your clip!', file=discord.File('mp/' + clips[rand]))
-    await ctx.send(file=discord.File('txt/' + txts[rand]))
 
 bot.run(TOKEN)
