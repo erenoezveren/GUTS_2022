@@ -1,7 +1,7 @@
-AAi/mp/*
-AAi/subtitles/*
-AAi/tmp/*
-AAi/out/*
+ClipBot/Audios/*
+ClipBot/Subtitles/*
+ClipBot/Videos/*
+ClipBot/out/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

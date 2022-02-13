@@ -4,8 +4,8 @@ import discord
 from dotenv import load_dotenv
 import random
 from subprocess import run
-from AssemblyAIproject import caption
-from clipextractor import extract
+from CaptionInserter import caption
+from ClipExtractor import extract
 
 from discord.ext import commands, tasks
 from discord.ext.commands import bot

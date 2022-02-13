@@ -30,30 +30,30 @@ def caption():
                 if not data:
                     break
                 yield data
-    arr=os.listdir('tmp/')
+    arr=os.listdir('Videos/')
     videos = [clip for clip in arr if clip.endswith(".mp4")]
 
-    if not os.path.exists("mp"):
-        os.makedirs("mp")
+    if not os.path.exists("Audios"):
+        os.makedirs("Audios")
 
-    if not os.path.exists("subtitles"):
-        os.makedirs("subtitles")
+    if not os.path.exists("Subtitles"):
+        os.makedirs("Subtitles")
 
     for i in range(len(videos)):
         print(i)
-        clip = mp.VideoFileClip(r'tmp/clip'+str(i)+".mp4")
-        clip.audio.write_audiofile(r"mp/clip"+str(i)+".mp3")
+        clip = mp.VideoFileClip(r'Videos/clip'+str(i)+".mp4")
+        clip.audio.write_audiofile(r"Audios/clip"+str(i)+".mp3")
 
     clips_N = len(videos)
-    arr = os.listdir('mp/')
+    arr = os.listdir('Audios/')
     audios = [clip for clip in arr if clip.endswith(".mp3")]
 
-    if not os.path.exists("subtitles"):
-        os.makedirs("subtitles")
+    if not os.path.exists("Subtitles"):
+        os.makedirs("Subtitles")
 
     for i in range(clips_N):
         print("Clip No. " + str(i))
-        upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/clip'+ str(i) + ".mp3"))
+        upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('Audios/clip'+ str(i) + ".mp3"))
         audio_url = upload_response.json()["upload_url"]
 
         transcript_request = {'audio_url': audio_url, 'filter_profanity': True,}
@@ -71,20 +71,20 @@ def caption():
             print("File is", polling_response.json()['status'])
 
 
-        print('Creating subtitles')
+        print('Creating Subtitles')
         endpoint = "https://api.assemblyai.com/v2/transcript/{}/srt".format(_id)
         response = requests.get(endpoint, headers=headers)
-        f = open("subtitles/srt{}.srt".format(i), "w+")
+        f = open("Subtitles/srt{}.srt".format(i), "w+")
         f.write(response.text)
         f.close()
 
     if not os.path.exists("out"):
         os.makedirs("out")
 
-    #put subtitles on videos
+    #put Subtitles on videos
     for i in range(clips_N):
 
 
-        print("Putting together subtitles and video")
-        os.system("ffmpeg -y -i tmp/clip{}.mp4 -b:v 900k -b:a 192k  -vf subtitles=subtitles/srt{}.srt out/out{}.mp4".format(i,i,i))
+        print("Putting together Subtitles and video")
+        os.system("ffmpeg -y -i Videos/clip{}.mp4 -b:v 900k -b:a 192k  -vf Subtitles=Subtitles/srt{}.srt out/out{}.mp4".format(i,i,i))
 

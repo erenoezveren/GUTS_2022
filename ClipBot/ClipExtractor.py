@@ -39,7 +39,7 @@ def extract():
     for index, clip in enumerate(URLS):
         if counter<5:
             client_id = 'Your Client ID'
-            basepath = 'tmp/'
+            basepath = 'Videos/'
             slug = clip.rpartition('/')[-1]
             clip_info = requests.get("https://api.twitch.tv/kraken/clips/" + slug, headers={"Client-ID": 'gp762nuuoqcoxypju8c569th9wz7q5', "Accept":"application/vnd.twitchtv.v5+json"}).json()
 
