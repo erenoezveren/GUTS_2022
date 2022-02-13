@@ -39,13 +39,30 @@ async def extract_clips(ctx):
         await ctx.send("Extracting complete! Check out the hottest clips with !clip.")
 
 
-@tasks.loop(minutes=60)
-async def auto_update(ctx):
+@tasks.loop(minutes=180)
+async def auto_update():
+    channel = client.get_channel('942077346410823770')
+    channel.send("Auto update started! Getting the newest clips, so please wait 5 minutes before using the !clip command.")
+    channel.send("Update finished! Enjoy the new hottest clips!")
     try:
-        await ctx.send("auto update started!")
         extract()
         caption()
+        try:
+            channel.send("Update finished! Enjoy the new hottest clips!", file=discord.File('finally.jpg'))
+        except:
+            channel.send("Update finished! Enjoy the new hottest clips!")
     except:
-        pass
+        channel.send("hey! something went wrong...please run !update manually!")
+
+
+@bot.command(name='info')
+async def info(ctx):
+    await ctx.send("Hi! I am the clipbot made by Team42 for the GUTS2022 Hackathon AssemblyAI challenge!\nYou can try me out by typing !clip, or !update if there are no clips available. Have fun!")
+
+@auto_update.before_loop
+async def my_background_task_before_loop():
+    await client.wait_until_ready()
+
+auto_update.start()
 
 bot.run(TOKEN)
