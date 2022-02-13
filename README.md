@@ -11,3 +11,7 @@ How to use:
   - !update (Extracts the hottest clips from r/livestreamfail and uses AssemblyAI to put subtitles on them)
   - !clip (display a clip)
   - !clip [number] (display a certain clip)
+
+
+Here is a video introducing the project and showcasing its features:
+https://streamable.com/c7hpqn
