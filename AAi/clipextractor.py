@@ -9,7 +9,7 @@ import sys
 import requests
 import urllib.request
 import argparse
-def extract_clips():
+def extract():
 
     auth = requests.auth.HTTPBasicAuth('BLuYjxErXU1iGIooZq1hfw', 'xpWGDzNAzXmT3TzYa9o79w1lEMgXlA')
     data = {'grant_type': 'password',

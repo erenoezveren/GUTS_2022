@@ -10,7 +10,7 @@ import moviepy.editor as mp
 from time import sleep
 import os
 
-def caption_clips():
+def caption():
 
     auth_key = 'c61f276a614a4416a8e9287b02812296'
 

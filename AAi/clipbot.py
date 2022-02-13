@@ -4,8 +4,8 @@ import discord
 from dotenv import load_dotenv
 import random
 from subprocess import run
-from AssemblyAIproject import caption_clips
-from clipextractor import extract_clips
+from AssemblyAIproject import caption
+from clipextractor import extract
 
 from discord.ext import commands
 from discord.ext.commands import bot
@@ -28,8 +28,8 @@ async def send_clip(ctx):
 @bot.command(name='extract')
 async def extract_clips(ctx):
     await ctx.send("Extracting the hottest clips! This might take a while, so why don't you grab a cup of coffee?;)")
-    extract_clips()
-    caption_clips()
+    extract()
+    caption()
     await ctx.send("Extracting complete! Check out the hottest clips with !clip.    ")
 
 
