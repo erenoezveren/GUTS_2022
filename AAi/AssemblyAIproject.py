@@ -45,6 +45,9 @@ clips_N = len(videos)
 arr = os.listdir('mp/')
 audios = [clip for clip in arr if clip.endswith(".mp3")]
 
+if not os.path.exists("subtitles"):
+    os.makedirs("subtitles")
+
 for i in range(clips_N):
     print("Clip No. " + str(i))
     upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/clip'+ str(i) + ".mp3"))
