@@ -56,7 +56,7 @@ def caption():
         upload_response = requests.post('https://api.assemblyai.com/v2/upload', headers=headers, data=read_file('mp/clip'+ str(i) + ".mp3"))
         audio_url = upload_response.json()["upload_url"]
 
-        transcript_request = {'audio_url': audio_url}
+        transcript_request = {'audio_url': audio_url, 'filter_profanity': True,}
         transcript_response = requests.post("https://api.assemblyai.com/v2/transcript", json=transcript_request, headers=headers)
         _id = transcript_response.json()["id"]
 
