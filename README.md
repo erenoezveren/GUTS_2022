@@ -3,7 +3,8 @@ This program enables downloading trending twitch clips with subtitles and displa
 
 How to use:
 
-1) Set up bot for your discord server
+1) Set up bot for your discord server - create your own Token on the discord developer token, and replace the one in the script. 
+                                        Add permissions on the developers portal for your bot to join the desired channel.
 2) Go onto your discord server
 3) Run ClipBot.py in Python Shell
 4) Use the following commands in a text channel on discord to use the bot:
