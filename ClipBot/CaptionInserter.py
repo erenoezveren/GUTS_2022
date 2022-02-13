@@ -82,5 +82,4 @@ def caption():
     for i in range(clips_n):
         print("Putting together Subtitles and video")
         os.system(
-            "ffmpeg -y -i Videos/clip{}.mp4 -b:v 900k -b:a 192k  "
-            "-vf subtitles=Subtitles/srt{}.srt Output/out{}.mp4".format(i, i, i))
+            "ffmpeg -y -i Videos/clip{}.mp4 -b:v 900k -b:a 192k -vf subtitles=Subtitles/srt{}.srt Output/out{}.mp4".format(i, i, i))
